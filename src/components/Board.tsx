@@ -48,7 +48,7 @@ const Board = (props: Props) => {
 
   const [value, setValue] = useState(getInitialState);
 
-  const handleChange = (e) => {
+  const handleChange = (e: { target: { value: React.SetStateAction<string>; }; }) => {
     setValue(e.target.value);
     console.log("console woring here");
     console.log(e.target.value);
