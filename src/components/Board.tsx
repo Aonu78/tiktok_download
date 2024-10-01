@@ -245,6 +245,7 @@ const Board = (props: Props) => {
               <MdLink color="gray.300" size="30px" />
             </InputLeftElement>
             <Input
+              id="linkInput"
               value={link}
               className={openSans.className}
               placeholder="https://www.tiktok.com/@user/video/12345"
