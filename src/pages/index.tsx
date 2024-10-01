@@ -1,10 +1,5 @@
-import React, { useEffect } from 'react';
-import {
-  Box,
-  Heading,
-  Text,
-  VStack,
-} from '@chakra-ui/react';
+import { useEffect } from 'react';
+import { Box, Heading, Text, VStack } from '@chakra-ui/react';
 import useTrans from '../hooks/useTrans';
 import { useThemeColor } from '@/hooks/useThemeColor';
 import Layout from '@/components/Layout';
@@ -15,19 +10,16 @@ export default function Home() {
   const { textColor, navBackgroundColor } = useThemeColor();
   const trans = useTrans();
 
+  // Function to automatically play video after the page loads
   useEffect(() => {
-    // Wait for 2 seconds after the page loads, then simulate a click on the iframe
-    const timer = setTimeout(() => {
-      const iframe = document.getElementById('videoIframe');
-      if (iframe) {
-        const iframeWindow = iframe.contentWindow;
-        iframeWindow.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
-      }
-    }, 2000);
-
-    // Cleanup the timeout on unmount
-    return () => clearTimeout(timer);
-  }, []);
+    const iframe = document.getElementById('videoIframe') as HTMLIFrameElement;
+    if (iframe && iframe.contentWindow) {
+      iframe.contentWindow.postMessage(
+        '{"event":"command","func":"playVideo","args":""}',
+        '*'
+      );
+    }
+  }, []); // Empty dependency array ensures this runs once on page load
 
   return (
     <Layout>
@@ -43,18 +35,23 @@ export default function Home() {
           color={textColor}
           lineHeight="7"
         >
+          {trans.home.text2} <br />
+          {trans.home.text3}
         </Text>
         <Box height="16px" />
+        
+        {/* YouTube Video iframe */}
         <iframe 
-          id="videoIframe"
+          id="videoIframe"  // Add this id to target the iframe
           width="100%" 
           height="700px" 
-          src="https://www.youtube.com/embed/PYJuIAsH8oE?enablejsapi=1" 
+          src="https://www.youtube.com/embed/PYJuIAsH8oE?enablejsapi=1&autoplay=1&mute=1" 
           title="Mostaza Argentina" 
           frameBorder="0" 
-          allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
           allowFullScreen>
         </iframe>
+
         <Box height="16px" />
       </VStack>
     </Layout>
