@@ -61,8 +61,10 @@ const Board = (props: Props) => {
   }, []);
 
   const handleGetInfoVideo = useCallback(async (url: string) => {
+    console.log("handleGetInfoVideo");
     if (REGEX_LINK_TIKTOK.filter((item) => item.test(url)).length === 0) {
       setVideoInfo(null);
+      console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
       setError('NOT_A_LINK_TIKTOK');
       return;
     }
@@ -77,21 +79,50 @@ const Board = (props: Props) => {
     setVideoInfo(data);
   }, []);
 
+  const handleRedirectUrl = async (inputLink: string) => {
+    try {
+      const response = await fetch(inputLink, {
+        method: 'GET',
+        redirect: 'follow' // Ensure it follows redirects
+      });
+  
+      // The `response.url` should contain the final redirect URL.
+      const finalUrl = response.url;
+  
+      console.log("Redirected URL:", finalUrl);
+      // Update state or handle the URL as needed
+      return finalUrl;
+    } catch (error) {
+      console.error("Error fetching video info:", error);
+      return inputLink;
+    }
+  };
+  
   const handleChangeLink = useCallback(
-    (e: any) => {
-      setLink(e.target.value);
-      if (REGEX_LINK_TIKTOK.filter((item) => item.test(e.target.value)).length > 0) {
-        handleGetInfoVideo(e.target.value);
-        console.log(e.target.value);
+    async (e: any) => {
+      // Get the input value
+      const inputValue = e.target.value;
+  
+      // Call the async function and wait for the final URL
+      const finalUrl = await handleRedirectUrl(inputValue);
+  
+      // Set the link with the resolved final URL
+      setLink(finalUrl);
+  
+      // Check if the final URL matches the regex
+      if (REGEX_LINK_TIKTOK.some((item) => item.test(finalUrl))) {
+        handleGetInfoVideo(finalUrl);
+        console.log("*****************");
+        console.log(finalUrl);
         console.log(value);
         console.log("Hello Wording here");
       } else {
         setVideoInfo(null);
       }
     },
-    [handleGetInfoVideo],
+    [handleGetInfoVideo]
   );
-
+  
   const onPasteClipboard = useCallback(() => {
     navigator.clipboard
       .readText()
