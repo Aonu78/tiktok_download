@@ -50,8 +50,6 @@ const Board = (props: Props) => {
 
   const handleChange = (e: { target: { value: React.SetStateAction<string>; }; }) => {
     setValue(e.target.value);
-    console.log("console woring here");
-    console.log(e.target.value);
   };
 
   const onDeleteLink = useCallback(() => {
@@ -61,10 +59,8 @@ const Board = (props: Props) => {
   }, []);
 
   const handleGetInfoVideo = useCallback(async (url: string) => {
-    console.log("handleGetInfoVideo");
     if (REGEX_LINK_TIKTOK.filter((item) => item.test(url)).length === 0) {
       setVideoInfo(null);
-      console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
       setError('NOT_A_LINK_TIKTOK');
       return;
     }
@@ -88,9 +84,7 @@ const Board = (props: Props) => {
   
       // The `response.url` should contain the final redirect URL.
       const finalUrl = response.url;
-  
-      console.log("Redirected URL:", finalUrl);
-      // Update state or handle the URL as needed
+
       return finalUrl;
     } catch (error) {
       console.error("Error fetching video info:", error);
@@ -112,10 +106,6 @@ const Board = (props: Props) => {
       // Check if the final URL matches the regex
       if (REGEX_LINK_TIKTOK.some((item) => item.test(finalUrl))) {
         handleGetInfoVideo(finalUrl);
-        console.log("*****************");
-        console.log(finalUrl);
-        console.log(value);
-        console.log("Hello Wording here");
       } else {
         setVideoInfo(null);
       }
@@ -169,7 +159,6 @@ const Board = (props: Props) => {
         }
         if (!blob) return setError('HAVE_ERROR');
         if (value=="option1") {
-          console.log("blob1 ______________-");
         const linkA = document.createElement('a');
         linkA.href = window.URL.createObjectURL(blob as any);
         linkA.download = fileName;
@@ -179,8 +168,6 @@ const Board = (props: Props) => {
         const l = document.createElement('br');
         }
         else {
-          console.log("blob2 ______________-");
-    console.log(e.target.value);
         const linkB = document.createElement('a');
         linkB.href = window.URL.createObjectURL(blob1 as any);
         linkB.download = fileName;

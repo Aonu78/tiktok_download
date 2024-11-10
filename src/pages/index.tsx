@@ -12,15 +12,20 @@ export default function Home() {
 
   // Function to automatically play video after the page loads
   useEffect(() => {
-    const iframe = document.getElementById('videoIframe') as HTMLIFrameElement;
-    if (iframe && iframe.contentWindow) {
-      iframe.contentWindow.postMessage(
-        '{"event":"command","func":"playVideo","args":""}',
-        '*'
-      );
-    }
+    const timeout = setTimeout(() => {
+      const iframe = document.getElementById('videoIframe') as HTMLIFrameElement;
+      if (iframe && iframe.contentWindow) {
+        iframe.contentWindow.postMessage(
+          '{"event":"command","func":"playVideo","args":""}',
+          '*'
+        );
+      }
+    }, 4000); // 3-second timeout
+  
+    // Optional cleanup function if necessary
+    return () => clearTimeout(timeout);
   }, []); // Empty dependency array ensures this runs once on page load
-
+  
   return (
     <Layout>
       <Board />
@@ -45,7 +50,7 @@ export default function Home() {
           id="videoIframe"  // Add this id to target the iframe
           width="100%" 
           height="700px" 
-          src="https://www.youtube.com/embed/PYJuIAsH8oE?enablejsapi=1&autoplay=0&mute=1" 
+          src="https://www.youtube.com/embed/PYJuIAsH8oE?enablejsapi=1&&mute=1" 
           title="Mostaza Argentina" 
           frameBorder="0" 
           allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
