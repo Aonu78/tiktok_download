@@ -37,9 +37,9 @@ const Header = ({ title }: Props) => {
       <link
         rel="apple-touch-icon"
         sizes="192x192"
-        href={`${process.env.NEXT_PUBLIC_DOMAIN}/snapthumb.png`}
+        href={`${process.env.NEXT_PUBLIC_DOMAIN}/TIKTAKI.png`}
       />
-      <link rel="shortcut icon" href="/favicon.webp" />
+      <link rel="shortcut icon" href="/icon.png" />
       <meta name="google" content="notranslate" />
       <link rel="alternate" hrefLang="x-default" href={process.env.NEXT_PUBLIC_DOMAIN} />
       {/* <link rel="alternate" hrefLang="vi" href={`${process.env.NEXT_PUBLIC_DOMAIN}`} /> */}
