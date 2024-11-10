@@ -70,6 +70,18 @@ const Header = ({ title }: Props) => {
         src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1909271227447970"
         crossOrigin="anonymous"
       ></script> */}
+            {/* Google Tag Manager Script */}
+      <script async src="https://www.googletagmanager.com/gtag/js?id=G-ZJPGFZY6GK"></script>
+      <script
+        dangerouslySetInnerHTML={{
+          __html: `
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-ZJPGFZY6GK');
+          `,
+        }}
+      />
     </Head>
   );
 };
