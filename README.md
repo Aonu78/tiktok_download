@@ -14,4 +14,4 @@ yarn dev
 pnpm dev
 ```
 
-Open [https://super-marzipan-94e6d2.netlify.app/](https://super-marzipan-94e6d2.netlify.app/) with your browser to see the result.
+Open [https://my-tik-taki.netlify.app/](https://my-tik-taki.netlify.app/) with your browser to see the result.
