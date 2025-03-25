@@ -77,11 +77,15 @@ const Board = (props: Props) => {
 
   const handleRedirectUrl = async (inputLink: string) => {
     try {
-      const response = await axios.get(inputLink, {
-        maxRedirects: 5, // Follow up to 5 redirects
+      const response = await fetch(inputLink, {
+        method: 'GET',
+        redirect: 'follow' // Ensure it follows redirects
       });
   
-      return response.request.res.responseUrl; // Get final resolved URL
+      // The `response.url` should contain the final redirect URL.
+      const finalUrl = response.url;
+
+      return finalUrl;
     } catch (error) {
       console.error("Error fetching video info:", error);
       return inputLink;
