@@ -77,7 +77,9 @@ const Board = (props: Props) => {
 
   const handleRedirectUrl = async (inputLink: string) => {
     try {
-      const response = await fetch(inputLink, {
+      const proxyUrl = "https://corsproxy.io/?";
+      
+      const response = await fetch(proxyUrl + encodeURIComponent(inputLink), {
         method: 'GET',
         redirect: 'follow' // Ensure it follows redirects
       });
