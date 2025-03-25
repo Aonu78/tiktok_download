@@ -2,6 +2,7 @@ import { openSans, REGEX_LINK_TIKTOK } from '@/contants';
 import { getIdVideo, getInfoVideo, getUrlRequest } from '@/helper';
 import { useThemeColor } from '@/hooks/useThemeColor';
 import useTrans from '@/hooks/useTrans';
+const axios = require('axios');
 import {
   Select, 
   Box,
@@ -75,17 +76,13 @@ const Board = (props: Props) => {
     setVideoInfo(data);
   }, []);
 
-  const handleRedirectUrl = async (inputLink: string) => {
+  const handleRedirectUrl = async (inputLink) => {
     try {
-      const response = await fetch(inputLink, {
-        method: 'GET',
-        redirect: 'follow' // Ensure it follows redirects
+      const response = await axios.get(inputLink, {
+        maxRedirects: 5, // Follow up to 5 redirects
       });
   
-      // The `response.url` should contain the final redirect URL.
-      const finalUrl = response.url;
-
-      return finalUrl;
+      return response.request.res.responseUrl; // Get final resolved URL
     } catch (error) {
       console.error("Error fetching video info:", error);
       return inputLink;
