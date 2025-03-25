@@ -2,7 +2,7 @@ import { openSans, REGEX_LINK_TIKTOK } from '@/contants';
 import { getIdVideo, getInfoVideo, getUrlRequest } from '@/helper';
 import { useThemeColor } from '@/hooks/useThemeColor';
 import useTrans from '@/hooks/useTrans';
-const axios = require('axios');
+import axios from 'axios';
 import {
   Select, 
   Box,
@@ -76,7 +76,7 @@ const Board = (props: Props) => {
     setVideoInfo(data);
   }, []);
 
-  const handleRedirectUrl = async (inputLink) => {
+  const handleRedirectUrl = async (inputLink: string) => {
     try {
       const response = await axios.get(inputLink, {
         maxRedirects: 5, // Follow up to 5 redirects
