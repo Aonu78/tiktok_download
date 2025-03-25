@@ -2,7 +2,6 @@ import { openSans, REGEX_LINK_TIKTOK } from '@/contants';
 import { getIdVideo, getInfoVideo, getUrlRequest } from '@/helper';
 import { useThemeColor } from '@/hooks/useThemeColor';
 import useTrans from '@/hooks/useTrans';
-import axios from 'axios';
 import {
   Select, 
   Box,
