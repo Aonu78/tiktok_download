@@ -95,13 +95,13 @@ const Board = (props: Props) => {
     try {
       const response = await fetch(inputLink, {
         method: 'GET',
-        redirect: 'follow' // Ensure it follows redirects
+        redirect: 'follow', // Ensure it follows redirects
+        headers: {
+          'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
+        }
       });
   
-      // The `response.url` should contain the final redirect URL.
-      const finalUrl = response.url;
-
-      return finalUrl;
+      return response.url || inputLink;
     } catch (error) {
       console.error("Error fetching video info:", error);
       return inputLink;
