@@ -55,19 +55,31 @@ const Board = (props: Props) => {
   useEffect(() => {
     const autoPasteClipboard = async () => {
       try {
+        // Check if clipboard API is available and permission is granted
         if (!navigator.clipboard) return;
-        const text = await navigator.clipboard.readText();
-        if (text && REGEX_LINK_TIKTOK.some((item) => item.test(text))) {
-          setLink(text);
-          handleGetInfoVideo(text);
+        
+        // Request permission to read clipboard
+        const permission = await navigator.permissions.query({
+          name: 'clipboard-read' as PermissionName
+        });
+        
+        if (permission.state === 'granted' || permission.state === 'prompt') {
+          const text = await navigator.clipboard.readText();
+          if (text && REGEX_LINK_TIKTOK.some((item) => item.test(text))) {
+            setLink(text);
+            handleGetInfoVideo(text);
+          }
         }
       } catch (error) {
         console.error('Clipboard access denied or failed:', error);
       }
     };
-    autoPasteClipboard();
+  
+    // Add a small delay to ensure the page is fully interactive
+    const timer = setTimeout(autoPasteClipboard, 500);
+    return () => clearTimeout(timer);
   }, []);
-   
+     
   const onDeleteLink = useCallback(() => {
     setLink('');
     setVideoInfo(null);
