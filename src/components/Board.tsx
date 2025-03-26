@@ -77,7 +77,7 @@ const Board = (props: Props) => {
 
   const handleRedirectUrl = async (inputLink: string) => {
     try {
-      const proxyUrl = "https://corsproxy.io/?";
+      const proxyUrl = "https://api.allorigins.win/raw?url=";
       
       const response = await fetch(proxyUrl + encodeURIComponent(inputLink), {
         method: 'GET',
