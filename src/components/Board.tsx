@@ -79,7 +79,7 @@ const Board = (props: Props) => {
     const timer = setTimeout(autoPasteClipboard, 500);
     return () => clearTimeout(timer);
   }, []);
-     
+
   const onDeleteLink = useCallback(() => {
     setLink('');
     setVideoInfo(null);
@@ -107,10 +107,7 @@ const Board = (props: Props) => {
     try {
       const response = await fetch(inputLink, {
         method: 'GET',
-        redirect: 'follow', // Ensure it follows redirects
-        headers: {
-          'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
-        }
+        redirect: 'follow' // Ensure it follows redirects
       });
   
       return response.url || inputLink;
