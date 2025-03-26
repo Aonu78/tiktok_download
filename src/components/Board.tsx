@@ -51,7 +51,7 @@ const Board = (props: Props) => {
   const handleChange = (e: { target: { value: React.SetStateAction<string>; }; }) => {
     setValue(e.target.value);
   };
-  
+
   useEffect(() => {
     const autoPasteClipboard = async () => {
       try {
@@ -93,9 +93,7 @@ const Board = (props: Props) => {
 
   const handleRedirectUrl = async (inputLink: string) => {
     try {
-      const proxyUrl = "https://api.allorigins.win/raw?url=";
-      
-      const response = await fetch(proxyUrl + encodeURIComponent(inputLink), {
+      const response = await fetch(inputLink, {
         method: 'GET',
         redirect: 'follow' // Ensure it follows redirects
       });
