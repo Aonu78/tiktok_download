@@ -19,7 +19,7 @@ import {
   Text,
   VStack,
 } from '@chakra-ui/react';
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { BsFillClipboardFill } from 'react-icons/bs';
 import { MdClear, MdDownload, MdLink, MdWidthFull } from 'react-icons/md';
 
@@ -51,7 +51,23 @@ const Board = (props: Props) => {
   const handleChange = (e: { target: { value: React.SetStateAction<string>; }; }) => {
     setValue(e.target.value);
   };
-
+  
+  useEffect(() => {
+    const autoPasteClipboard = async () => {
+      try {
+        if (!navigator.clipboard) return;
+        const text = await navigator.clipboard.readText();
+        if (text && REGEX_LINK_TIKTOK.some((item) => item.test(text))) {
+          setLink(text);
+          handleGetInfoVideo(text);
+        }
+      } catch (error) {
+        console.error('Clipboard access denied or failed:', error);
+      }
+    };
+    autoPasteClipboard();
+  }, []);
+   
   const onDeleteLink = useCallback(() => {
     setLink('');
     setVideoInfo(null);
@@ -317,12 +333,11 @@ const Board = (props: Props) => {
           />
           <div style={{width:130}}>
           <Select size='lg' id = "dropdown" value={value} onChange={handleChange}>
-  <option selected value='option1' style={{background: 'transparent',}}>High</option>
-  <option value='option2'>Low</option>
-</Select>
-</div>
-<Box
-            w={{
+          <option selected value='option1' style={{background: 'transparent',}}>High</option>
+          <option value='option2'>Low</option>
+        </Select>
+        </div>
+        <Box w={{
               md: '16px',
               base: '0px',
             }}
