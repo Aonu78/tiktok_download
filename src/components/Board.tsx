@@ -163,9 +163,13 @@ const Board = (props: Props) => {
         if (!videoId) {
           videoId = getIdVideo(link);
         }
-        const url = process.env.NEXT_PUBLIC_DOWNLOAD_URL + videoId; // + '.mp4'
-        const url_play = process.env.NEXT_PUBLIC_DOWNLOAD_URL_play + videoId; // + '.mp4'
-        const url_wmplay = process.env.NEXT_PUBLIC_DOWNLOAD_URL_wmplay + videoId; // + '.mp4'
+        const url = process.env.NEXT_PUBLIC_DOWNLOAD_URL + videoId + '.mp4';
+        const url_play = process.env.NEXT_PUBLIC_DOWNLOAD_URL_play + videoId + '.mp4';
+        const url_wmplay = process.env.NEXT_PUBLIC_DOWNLOAD_URL_wmplay + videoId + '.mp4';
+        
+        // const url = process.env.NEXT_PUBLIC_DOWNLOAD_URL + videoId; // + '.mp4'
+        // const url_play = process.env.NEXT_PUBLIC_DOWNLOAD_URL_play + videoId; // + '.mp4'
+        // const url_wmplay = process.env.NEXT_PUBLIC_DOWNLOAD_URL_wmplay + videoId; // + '.mp4'
         const fileName  = videoId + '.mp4';
         const fileName1 = videoId + '.mp4';
         const fileName2 = videoId + '.mp4';
